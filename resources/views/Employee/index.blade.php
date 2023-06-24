@@ -28,58 +28,71 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <a class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    href="{{ route('export') }}">Export Employees</a>
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Name
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Job Title
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Department
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Age
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Salary
-                                    </th>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-6">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-6">
+                        <div class="container mx-auto mb-6">
+                            <a class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                href="{{ route('export') }}">Export to XLSX</a>
+                            <a class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                href="{{ route('generate-pdf') }}">Export to PDF</a>
+                        </div>
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    No
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Job Title
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Department
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Age
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Salary
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $count = 0;
+                            @endphp
+                            @foreach ($employees as $employee)
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">
+                                        {{ ++$count }}
+                                    </td>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $employee->fullname }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $employee->title }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $employee->department }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $employee->age }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        ${{ number_format($employee->salary, 2, ',', '.') }}
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
-                                    <tr
-                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->fullname }}
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            {{ $employee->title }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $employee->department }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $employee->age }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            ${{ number_format($employee->salary, 2, ',', '.') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            @endforeach
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                    {{ $employees->links() }}
+
                 </div>
             </div>
         </div>

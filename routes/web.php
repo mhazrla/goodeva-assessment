@@ -19,21 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 Route::controller(EmployeeController::class)->group(function () {
     Route::get('/', 'index')->name('/');
     Route::post('import', 'import')->name('import');
     Route::get('export', 'export')->name('export');
     Route::get('chart', 'chart')->name('chart');
+    Route::get('/dummy-data', function () {
+        return ['value' => rand(0, 100)];
+    })->name('dummy-data');
+    Route::get('/pdf', [EmployeeController::class, 'exportPDF'])->name('generate-pdf');
 });
 
 require __DIR__ . '/auth.php';
