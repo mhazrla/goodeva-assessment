@@ -51,6 +51,6 @@ class EmployeeController extends Controller
         view()->share('employee', $employees);
         $pdf = PDF::loadView('Employee/PDF', ['employees' => $employees]);
         // download PDF file with download method
-        return $pdf->download(time() . '.pdf');
+        return $pdf->download(time() . '- Employee Data.pdf');
     }
 }
