@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -29,7 +30,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-6">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-6">
+                    <table id="table-datatables" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-6">
                         <div class="container mx-auto mb-6">
                             <a class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 href="{{ route('export') }}">Export to XLSX</a>
@@ -97,5 +98,13 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table-datatables').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['excel', 'pdf', 'print'],
+            });
+        });
+    </script>
 
 </x-app-layout>

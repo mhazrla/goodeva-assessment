@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::latest()->paginate(15);
-        return view('Employee/Index', compact('employees'));
+        return view('Employee.index', compact('employees'));
     }
 
     public function chart(EmployeePieChart $pie, EmployeeLineChart $line, EmployeeBarChart $bar, EmployeeDonutChart $donut)
@@ -30,7 +30,7 @@ class EmployeeController extends Controller
             ->setTitle("Random Data Generator")
             ->setMaxValues(100);
 
-        return view('Employee/Chart', ['pie' => $pie->build(), 'line' => $line->build(), 'bar' => $bar->build(), 'donut' => $donut->build(), 'gauge' => $gauge]);
+        return view('Employee.chart', ['pie' => $pie->build(), 'line' => $line->build(), 'bar' => $bar->build(), 'donut' => $donut->build(), 'gauge' => $gauge]);
     }
 
     public function export()
@@ -49,7 +49,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::get();
         view()->share('employee', $employees);
-        $pdf = PDF::loadView('Employee/PDF', ['employees' => $employees]);
+        $pdf = PDF::loadView('Employee.pdf', ['employees' => $employees]);
         // download PDF file with download method
         return $pdf->download(time() . '- Employee Data.pdf');
     }
