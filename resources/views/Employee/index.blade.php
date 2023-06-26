@@ -103,6 +103,8 @@
             $('#table-datatables').DataTable({
                 dom: 'Bfrtip',
                 buttons: ['excel', 'pdf', 'print'],
+                paging: false,
+                searching: false,
             });
         });
     </script>
